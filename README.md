@@ -1,4 +1,5 @@
 # Minecraft-Rcon
+Python版本：3.x
 轻量级Minecraft服务端rcon连接器。
 
 Minecraft服务端远程命令（RCON）模板
