@@ -1,3 +1,4 @@
+
 # Minecraft-Rcon
 
 Python的版本：3.x
@@ -27,3 +28,7 @@ Minecraft服务端远程命令（RCON）模板
     In [5]: resp = mcr.command("/发送给服务端的指令")
     In [6]: print(resp) #输出
     In [7]: mcr.disconnect() #断开连接
+
+
+
+以上是laomei的介绍，因为GitHub开源嘛所以就f了一个
