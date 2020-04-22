@@ -17,4 +17,8 @@ if not os.isfile("./inf"):
         else:
             print('档案储存成功',os.filepath("./inf")
         finally:
-            
+            return 0
+def run(command):
+    rcon.command(command)
+while True:
+    with rcon
