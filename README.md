@@ -31,4 +31,4 @@ Minecraft服务端远程命令（RCON）模板
 
 
 
-以上是laomei的介绍，因为GitHub开源嘛所以就f了一个
+以上是laomie的介绍，因为GitHub开源嘛所以就f了一个
