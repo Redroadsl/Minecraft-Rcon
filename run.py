@@ -1,24 +1,63 @@
-from rcon import MCRcon as rcon
+from rcon import MCRcon as MCR
+import configparser
 import os
-if not os.isfile("./inf"):
-    with open("./inf",'w+') as file:
-        print('输入IP')
-        ip=input()
-        print('输入端口')
-        port=int(input())
-        print('rcon密码')
-        pw=input()
-        print('\n\n',"确认你的信息\n",'IP:',ip,'\n端口:',str(port),'\n密码:',pw)
+
+ip = ''
+port = 0
+pw = ''
+
+config = configparser.ConfigParser()
+
+def ask_for_config():
+    '询问用户连接信息并覆盖储存在配置文件'
+    with open("./mcrcon.ini",'w') as file:
+        config['RCON'] = {}
+        config['RCON']['ip']=ip=input('输入IP（无端口）: ')
+        config['RCON']['port']=port=input('输入端口: ')
+        config['RCON']['password']=pw=input('rcon密码:\n')
+        print('确认保存你的信息:\nIP:{}\n端口:{}\n密码:{}'.format(ip, port, pw))
         input('Enter')
         try:
-            file.write(ip+' '+str(port)+' '+pw)
+            config.write(file)
         except Exception as err:
-            print('\n档案储存出现错误:',err,'\n')
+            print('档案储存出现错误:',err,'\n')
         else:
-            print('档案储存成功',os.filepath("./inf")
-        finally:
-            return 0
-def run(command):
-    rcon.command(command)
+            print('档案储存成功: ./mcrcon.ini')
+
+
+if os.path.exists('./mcrcon.ini'):
+    try:
+        config.read('./mcrcon.ini')
+        ip=config['RCON']['ip']
+        port=config['RCON']['port']
+        pw=config['RCON']['password']
+    except:
+        print('配置文件有误，重新创建')
+        ask_for_config()
+        config.read('./mcrcon.ini')
+        ip=config['RCON']['ip']
+        port=config['RCON']['port']
+        pw=config['RCON']['password']
+else:
+    ask_for_config()
+
+
 while True:
-    with rcon
+    try:
+        print('正在连接 {}:{}'.format(ip,port))
+        mcr = MCR(ip, pw, int(port))
+        mcr.connect()
+        while True:
+            print(mcr.command(input('{}:{}>'.format(ip,port))))
+    except ConnectionRefusedError as err:
+        print('连接错误:',err)
+    except KeyboardInterrupt:
+        print('连接关闭')
+        mcr.disconnect()
+        break
+    
+
+
+
+
+        
